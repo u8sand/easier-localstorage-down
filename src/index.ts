@@ -7,7 +7,7 @@ type LocalStorageDOWNConfig = {
 }
 
 class LocalStorageDOWN implements EasierLevelDOWN<string, string, LocalStorageDOWNConfig> {
-  _prefix: string
+  _prefix: string = ''
 
   _key(k: string): string {
     return this._prefix + k
