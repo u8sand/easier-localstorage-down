@@ -1,12 +1,12 @@
-import expose, { EasierLevelDOWN } from 'easier-abstract-leveldown'
+import expose, { EasierLevelDOWN, EasierLevelDOWNEmitter } from 'easier-abstract-leveldown'
 import humbleLocalStorage from 'humble-localstorage'
 import { range } from './range'
 
-type LocalStorageDOWNConfig = {
+export type LocalStorageDOWNConfig = {
   location?: string
 }
 
-class LocalStorageDOWN implements EasierLevelDOWN<string, string, LocalStorageDOWNConfig> {
+export class LocalStorageDOWN implements EasierLevelDOWN<string, string, LocalStorageDOWNConfig> {
   _prefix: string = ''
 
   _key(k: string): string {
@@ -54,6 +54,21 @@ class LocalStorageDOWN implements EasierLevelDOWN<string, string, LocalStorageDO
         value: humbleLocalStorage.getItem(this._key(k))
       }
     }
+  }
+
+  changes() {
+    const emitter = new EasierLevelDOWNEmitter<string, string>()
+    if (window !== undefined) {
+      window.onstorage = (e: StorageEvent) => {
+        if (e.key.slice(0, this._prefix.length) === this._prefix) {
+          if(e.newValue === null || e.newValue === undefined)
+            emitter.emitDel(this._key(e.key))
+          else
+            emitter.emitPut(this._key(e.key), e.newValue)
+        }
+      }
+    }
+    return emitter
   }
 }
 

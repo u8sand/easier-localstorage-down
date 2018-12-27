@@ -1,6 +1,6 @@
 {
   "name": "easier-localstorage-down",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A localstorage-down implementation on top of easier-abstract-leveldown",
   "author": "Daniel J. B. Clarke <u8sand@gmail.com>",
   "license": "MIT",
@@ -22,12 +22,12 @@
     "test": "tape -r ts-node/register src/**/*.test.ts"
   },
   "dependencies": {
-    "easier-abstract-leveldown": "^1.0.0",
+    "easier-abstract-leveldown": "^1.0.4",
     "humble-localstorage": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",
-    "abstract-leveldown": "^6.0.0",
+    "abstract-leveldown": "^6.0.1",
     "tape": "^4.9.1",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
