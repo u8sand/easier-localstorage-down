@@ -72,4 +72,4 @@ export class LocalStorageDOWN implements EasierLevelDOWN<string, string, LocalSt
   }
 }
 
-export default expose(LocalStorageDOWN)
+export default expose(() => new LocalStorageDOWN())
